@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DaysViewModel>
+@{
+    ViewData["Title"] = "Расписание";
+}
+    @foreach (var m in Model)
+    {
+        <div class="row">
+        <div class="col-lg-1 table-success"><h2 class="sticky-top ">@m.Date.ToString("M")<br>@m.Date.DayOfWeek.ToString()</h2></div>
+        <div class="col-lg-11">
+            <table style="width:100%; table-layout: fixed;" class="table table-bordered table-dark">
+                <thead>
+                    <tr>
+                        <th rowspan="2" align="center">Сотрудники</th>
+                        <th colspan="13" align="center">Рабочее время</th>
+                    </tr>
+                    <tr>
+                        <th>8-9</th>
+                        <th>9-10</th>
+                        <th>10-11</th>
+                        <th>11-12</th>
+                        <th>12-13</th>
+                        <th>13-14</th>
+                        <th>14-15</th>
+                        <th>15-16</th>
+                        <th>16-17</th>
+                        <th>17-18</th>
+                        <th>18-19</th>
+                        <th>19-20</th>
+                        <th>20-21</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                    @foreach (var staff in m.StaffSchedules)
+                    {
+                        <tr>
+                            <td style="width:200px" >@staff.Name</td>
+                            @foreach (var zn in staff.Zns)
+                            {
+                                <td colspan=@zn.Delta style="background-color:@zn.color" align="center">@string.Join(",\n", zn.ZnIds)</td>
+                            }
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        </div>
+    }
